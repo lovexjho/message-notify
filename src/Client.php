@@ -55,10 +55,8 @@ class Client
     public function setChannel($channel = null): Client
     {
         if (!$channel instanceof AbstractChannel) {
-            throw new \Exception('Channel must be of AbstractChannel type');
+            $channel = make($channel);
         }
-
-        $channel = make($channel);
 
         $this->channel = $channel;
         return $this;
