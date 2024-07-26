@@ -7,8 +7,8 @@ namespace MessageNotify\Channel;
 use Hyperf\Context\ApplicationContext;
 use MessageNotify\Exceptions\MessageNotificationException;
 use MessageNotify\Template\AbstractTemplate;
+use Hyperf\Contract\ConfigInterface;
 use function Hyperf\Support\make;
-
 abstract class AbstractChannel
 {
     public function getConfig()
