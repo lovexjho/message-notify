@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use MessageNotify\Exceptions\MessageNotificationException;
 use MessageNotify\Template\AbstractTemplate;
+use function Hyperf\Support\make;
 
 class WechatChannel extends AbstractChannel
 {

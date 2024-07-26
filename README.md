@@ -22,7 +22,7 @@ composer require vinchan/message-notify -vvv
 发布配置文件`config/message.php`
 
 ```bash
-hyperf vendor:publish vinchan/message-notify
+php bin/hyperf.php vendor:publish vinchan/message-notify
 ```
 
 
