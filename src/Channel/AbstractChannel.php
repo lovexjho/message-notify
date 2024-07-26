@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MessageNotify\Channel;
 
-use Hyperf\Contract\ConfigInterface;
+use Hyperf\Context\ApplicationContext;
 use MessageNotify\Exceptions\MessageNotificationException;
 use MessageNotify\Template\AbstractTemplate;
 use function Hyperf\Support\make;
@@ -13,7 +13,7 @@ abstract class AbstractChannel
 {
     public function getConfig()
     {
-        if (class_exists(\Hyperf\Utils\ApplicationContext::class)) {
+        if (class_exists(ApplicationContext::class)) {
             $configContext = make(ConfigInterface::class);
 
             return $configContext->get('message.channels.' . get_class($this));

@@ -6,10 +6,10 @@ namespace MessageNotify;
 
 use MessageNotify\Channel\AbstractChannel;
 use MessageNotify\Contracts\MessageNotifyInterface;
-use MessageNotify\Exceptions\MessageNotificationException;
 use MessageNotify\Template\AbstractTemplate;
 use MessageNotify\Template\Text;
 use function Hyperf\Support\make;
+use Hyperf\Context\ApplicationContext;
 
 class Client
 {
@@ -54,9 +54,11 @@ class Client
 
     public function setChannel($channel = null): Client
     {
-        if (! $channel instanceof AbstractChannel) {
-            $channel = make($channel);
+        if (!$channel instanceof AbstractChannel) {
+            throw new \Exception('Channel must be of AbstractChannel type');
         }
+
+        $channel = make($channel);
 
         $this->channel = $channel;
         return $this;
@@ -64,7 +66,7 @@ class Client
 
     public function setTemplate($template = ''): Client
     {
-        if (! $template instanceof AbstractChannel) {
+        if (!$template instanceof AbstractChannel) {
             $template = make($template);
         }
 
@@ -101,23 +103,11 @@ class Client
         return $this;
     }
 
-    public function send(): bool
+    public function send()
     {
-        try {
-            $template = $this->getTemplate()->setAt($this->getAt())
-                ->setTitle($this->getTitle())->setText($this->getText())
-                ->setPipeline($this->getPipeline());
-
-            $this->getChannel()->send($template);
-            return true;
-        } catch (MessageNotificationException $exception) {
-            $this->errorMessage = $exception->getMessage();
-            return false;
-        }
-    }
-
-    public function getErrorMessage(): string
-    {
-        return $this->errorMessage;
+        $template = $this->getTemplate()->setAt($this->getAt())
+            ->setTitle($this->getTitle())->setText($this->getText())
+            ->setPipeline($this->getPipeline());
+        $this->getChannel()->send($template);
     }
 }

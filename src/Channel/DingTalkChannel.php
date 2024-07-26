@@ -10,6 +10,7 @@ use GuzzleHttp\RequestOptions;
 use MessageNotify\Exceptions\MessageNotificationException;
 use MessageNotify\Template\AbstractTemplate;
 use function Hyperf\Support\make;
+use Hyperf\Context\ApplicationContext;
 
 class DingTalkChannel extends AbstractChannel
 {
@@ -40,7 +41,7 @@ class DingTalkChannel extends AbstractChannel
     {
         $config['base_uri'] = 'https://oapi.dingtalk.com/robot/send' . $query;
 
-        if (class_exists(\Hyperf\Utils\ApplicationContext::class)) {
+        if (class_exists(ApplicationContext::class)) {
             return make(Client::class, [$config]);
         }
 
